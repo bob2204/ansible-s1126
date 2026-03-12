@@ -20,3 +20,26 @@
       ansible.builtin.copy:
         src: index.html
         dest: /var/www/html
+
+    - name: Modification du port d'écoute IPV4
+      ansible.builtin.lineinfile:
+        dest: /etc/nginx/sites-enabled/default
+        regex: listen 80[ ]
+        line: "\tlisten 8080 default_server;"
+        #backup: true
+
+    - name: Modification du port d'écoute IPV6
+      ansible.builtin.lineinfile:
+        dest: /etc/nginx/sites-enabled/default
+        regex: :80[ ]
+        line: "\tlisten [::]:8080 default_server;"
+        #backup: true
+      tags:
+        - go
+
+    - name: Rechargement de la configuration
+      ansible.builtin.systemd:
+        name: nginx
+        state: reloaded
+      tags:
+        - go
