@@ -1,0 +1,22 @@
+---
+- name: Module lineinfile
+  hosts: www
+  gather_facts: false
+
+  tasks:
+    - name: Ajout d'une ligne au fichier /tmp/demo.txt
+      ansible.builtin.lineinfile:
+        dest: /tmp/demo.txt
+        line: Ligne 3 
+
+    - name: Suppression d'une ligne du fichier /tmp/demo.txt
+      ansible.builtin.lineinfile:
+        dest: /tmp/demo.txt
+        regex: ^Ligne 2$
+        state: absent
+
+    - name: Modification d'une ligne du fichier /tmp/demo.txt
+      ansible.builtin.lineinfile:
+        dest: /tmp/demo.txt
+        regex: ^Ligne 1$
+        line: Ligne 10
