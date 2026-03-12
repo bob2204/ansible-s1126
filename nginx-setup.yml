@@ -1,0 +1,22 @@
+---
+- name: Mise en œuvre d'un service Nginx
+  hosts: www
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Installation du paquet Nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
+
+    - name: Configuration du service systemd
+      ansible.builtin.systemd:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Copy du fichier index.html
+      ansible.builtin.copy:
+        src: index.html
+        dest: /var/www/html
