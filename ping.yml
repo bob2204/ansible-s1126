@@ -1,0 +1,8 @@
+---
+- name: Playbook initial
+  hosts: all
+
+  tasks:
+    - name: Module ping
+      ansible.builtin.ping:
+        data: OK
