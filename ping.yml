@@ -1,6 +1,7 @@
 ---
 - name: Playbook initial
   hosts: all
+  gather_facts: false
 
   tasks:
     - name: Module ping
