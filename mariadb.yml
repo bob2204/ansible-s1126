@@ -1,0 +1,16 @@
+---
+- name: Installation de mariadb
+  hosts: swarm-3
+  
+  roles:
+    - role: geerlingguy.mysql
+      become: true
+      mysql_root_password: azerty
+      mysql_databases:
+        - name: stage
+      mysql_users:
+        - name: bob
+          host: localhost
+          password: azerty
+          priv: stage.*:ALL
+
