@@ -5,6 +5,11 @@
   become: true
 
   tasks:
+    - name: Fichier logins.yml
+      ansible.builtin.include_vars:
+        file: logins.yml
+      tags: tmpl
+
     - name: Installation du paquet Nginx
       ansible.builtin.package:
         name: nginx

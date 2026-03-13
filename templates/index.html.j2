@@ -1,1 +1,7 @@
 <h4>Micro-TP Ansible Nginx ({{ inventory_hostname }}/{{ (template_run_date | string | split(' '))[0] }})</h4>
+
+<ul>Logins
+{% for login in logins %}
+<li>{{ login }}</li>
+{% endfor %}
+</ul>
