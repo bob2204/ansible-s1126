@@ -1,0 +1,9 @@
+---
+- name: Module shell
+  hosts: www
+  gather_facts: false
+
+  tasks:
+    - name: Module shell
+      ansible.builtin.shell: whoami
+      changed_when: false
