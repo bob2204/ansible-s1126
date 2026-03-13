@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for roles.d/nginx
+- name: Rechargement de la configuration
+  ansible.builtin.systemd:
+    name: nginx
+    state: reloaded
+  listen:
+    - reload_nginx

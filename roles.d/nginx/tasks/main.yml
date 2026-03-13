@@ -1,0 +1,40 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles.d/nginx
+- name: Fichier logins.yml
+  ansible.builtin.include_vars:
+    file: logins.yml
+  tags: tmpl
+
+- name: Installation du paquet Nginx
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Configuration du service systemd
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Copy/template du fichier index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  tags: tmpl
+
+- name: Modification du port d'écoute IPV4
+  ansible.builtin.lineinfile:
+    dest: /etc/nginx/sites-enabled/default
+    regex: listen 80[ ]
+    line: "\tlisten 8080 default_server;"
+  notify:
+    - reload_nginx
+
+- name: Modification du port d'écoute IPV6
+  ansible.builtin.lineinfile:
+    dest: /etc/nginx/sites-enabled/default
+    regex: :80[ ]
+    line: "\tlisten [::]:8080 default_server;"
+  notify:
+    - reload_nginx

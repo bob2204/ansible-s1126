@@ -1,0 +1,17 @@
+---
+- name: Utilisation du rôle nginx
+  hosts: www
+  gather_facts: false
+  
+  pre_tasks:
+    - name: Pré-task
+      ansible.builtin.debug:
+        msg: "Début"
+  
+  post_tasks:
+    - name: Final task
+      ansible.builtin.debug:
+        msg: "Fin"
+
+  roles:
+    - role: nginx
