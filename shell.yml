@@ -7,13 +7,16 @@
     USER: "{{ LOGIN | default('root') }}"
 
   tasks:
-    - name: Module shell
-      ansible.builtin.shell: grep "^{{ USER }}:" /etc/passwd
-      changed_when: false
-      register: shell_result
-      failed_when: shell_result.rc > 1
+    - name: Block when
+      block:
+      - name: Module shell
+        ansible.builtin.shell: grep "^{{ USER }}:" /etc/passwd
+        changed_when: false
+        register: shell_result
+        failed_when: shell_result.rc > 1
 
-    - name: Utilisateur inexistant
-      ansible.builtin.debug:
-        msg: "Utilisateur {{ USER }} inexistant" 
-      when: shell_result.rc == 1
+      - name: Utilisateur inexistant
+        ansible.builtin.debug:
+          msg: "Utilisateur {{ USER }} inexistant" 
+        when: shell_result.rc == 1
+      when: GO|default('ko') == "ok"
