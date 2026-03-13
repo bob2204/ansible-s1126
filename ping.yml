@@ -3,7 +3,10 @@
   hosts: all
   gather_facts: false
 
+  vars:
+    var_1: OKAY
+
   tasks:
     - name: Module ping
       ansible.builtin.ping:
-        data: OK
+        data: "{{ var_1 }}"
