@@ -15,3 +15,5 @@
     - name: Module debug
       ansible.builtin.debug:
         msg: "Résultat ping: {{ ping_result.ping | lower }}"
+      when:
+        - ping_result.changed == False
