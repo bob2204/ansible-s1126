@@ -16,10 +16,11 @@
         state: started
         enabled: true
 
-    - name: Copy du fichier index.html
-      ansible.builtin.copy:
-        src: index.html
-        dest: /var/www/html
+    - name: Copy/template du fichier index.html
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+      tags: tmpl
 
     - name: Modification du port d'écoute IPV4
       ansible.builtin.lineinfile:
