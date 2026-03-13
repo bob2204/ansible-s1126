@@ -10,3 +10,8 @@
     - name: Module ping
       ansible.builtin.ping:
         data: "{{ var_1 }}"
+      register: ping_result
+
+    - name: Module debug
+      ansible.builtin.debug:
+        var: ping_result
