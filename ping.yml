@@ -14,4 +14,4 @@
 
     - name: Module debug
       ansible.builtin.debug:
-        msg: "Résultat ping: {{ ping_result.ping }}"
+        msg: "Résultat ping: {{ ping_result.ping | lower }}"
