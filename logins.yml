@@ -1,0 +1,17 @@
+---
+- name: Boucle et include_vars
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Chargement du fichier logins.yml
+      ansible.builtin.include_vars:
+        file: logins.yml
+
+    - name: Création d'utilisateur
+      ansible.builtin.user:
+        name: "{{ item }}" 
+        state: present
+      loop: "{{ logins }}"
+      become: true
+
